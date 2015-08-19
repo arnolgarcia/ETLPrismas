@@ -67,13 +67,13 @@ class Prisma(object):
 		self.datos=sorted(self.datos,key=lambda l:l.Time)
 	def getData(self,k):
 		return (self.datos[k]).getData()
-	def creaInicio(self): # Crea un arreglo con dato inicial en la primera hora con registros "HH:00:00"
+	def creaInicio(self): # Crea un arreglo con dato inicial en la hora "00:00:00"
 		self.sortbyTime()
 		x,y = self.listasXY()
 		xx = x
 		yy = y
-		if x[0].minute>0 or x[0].second >0:
-			startday=datetime(year=x[0].year,month=x[0].month,day=x[0].day,hour=x[0].hour)
+		if x[0].minute>0 or x[0].second >0 or x[0].hour > 0:
+			startday=datetime(year=x[0].year,month=x[0].month,day=x[0].day,hour=0)
 			xx.insert(0,startday)
 			yy.insert(0,y[0])
 		return xx,yy
