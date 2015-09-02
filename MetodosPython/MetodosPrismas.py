@@ -150,7 +150,7 @@ def interPrisma(prisma,hora):
 	interVel = list(np.array(interDef)/hora)
 	return interFecha,interNorte,interEste,interAltura,interDef,interVel
 
-def creaBDalarmas(connString,tableinput,tableoutput,hora,MA_m,EWMA_m,EWMA_a):
+def creaBDalarmas(connString,tableinput,tableoutput,hora,MA_m,EWMA_a):
 	if len(tableoutput.split("."))==2:
 		schema = tableoutput.split(".")[0]
 		tablename = tableoutput.split(".")[1]
@@ -194,11 +194,11 @@ def creaBDalarmas(connString,tableinput,tableoutput,hora,MA_m,EWMA_m,EWMA_a):
 		f,n,e,a,d,v = interPrisma(prisma,hora)
 		acel_r = aceleracion(v,hora)
 		def_MA = MA(d,MA_m)
-		def_EWMA = EWMA(d,EWMA_m,EWMA_a)
+		def_EWMA = EWMA(d,EWMA_a)
 		vel_MA = MA(v,MA_m)
-		vel_EWMA = EWMA(v,EWMA_m,EWMA_a)
+		vel_EWMA = EWMA(v,EWMA_a)
 		acel_MA = MA(acel_r,MA_m)
-		acel_EWMA = EWMA(acel_r,EWMA_m,EWMA_a)
+		acel_EWMA = EWMA(acel_r,EWMA_a)
 		for i in xrange(len(f)):
 			# create the feature
 			feature = ogr.Feature(layer.GetLayerDefn())
@@ -268,19 +268,19 @@ def MA(y,m):
 			yy.append(aux)
 	return yy
 
-def EWMA(y,m,alpha):
-	if m < 0:
-		print '[ ERROR ]: parametros no validos para  la funcion EWMA'
-		sys.exit( 1 )
-	yy=[]
-	for t in xrange(len(y)):
-		if t < m or y[t-m]==None:
-			yy.append(None)
+def EWMA(y,alpha):
+	alpha = 1.0*alpha
+	yy = []
+	if y[0]==None:
+		yy.append(0.0)
+	else:
+		yy.append(y[0])
+	for t in range(1,len(y)):
+		if y[t]==None:
+			st = 0.0
 		else:
-			aux = 0
-			for j in range(m+1):
-				aux = aux + alpha*((1.0-alpha)**j)*y[t-j]
-			yy.append(aux)
+			st = alpha*y[t]+(1.0-alpha)*yy[t-1]
+		yy.append(st)
 	return yy
 
 def testConn(connString):

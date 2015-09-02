@@ -19,16 +19,10 @@ password = "Admin321"
 connString = 'PG: host=%s port=%s dbname=%s user=%s password=%s' %(host,port,dbname,user,password)
 
 tableinput = "prismas.consolidado_testing" #TODO: cambiar port tabla ".consolidado"
-tableoutput = "prismas.test_ag4" #TODO: cambiar por ",consAlarmaPrisma"
-hora = 12
+tableoutput = "prismas.prisma_mm_test_jp2" #TODO: cambiar por ",consAlarmaPrisma"
+hora = 6
 MA_m = 3
-EWMA_m = 3
 EWMA_a = 0.3
-
-# -----------------------------------------------------------------------------
-#     Funciones
-# -----------------------------------------------------------------------------
-
 
 
 # -----------------------------------------------------------------------------
@@ -37,4 +31,4 @@ EWMA_a = 0.3
 
 met.testConn(connString)
 
-met.creaBDalarmas(connString,tableinput,tableoutput,hora,MA_m,EWMA_m,EWMA_a)
+met.creaBDalarmas(connString,tableinput,tableoutput,hora,MA_m,EWMA_a)
