@@ -18,8 +18,8 @@ user = "postgres"
 password = "Admin321"
 connString = 'PG: host=%s port=%s dbname=%s user=%s password=%s' %(host,port,dbname,user,password)
 
-tableinput = "prismas.consolidado_testing" #TODO: cambiar port tabla ".consolidado"
-tableoutput = "prismas.prisma_mm_test_jp2" #TODO: cambiar por ",consAlarmaPrisma"
+tableinput = "prismas.consolidado_reprocesado" #TODO: cambiar port tabla ".consolidado"
+tableoutput = "prismas.cons_alarma_prisma" #TODO: cambiar por ",consAlarmaPrisma"
 hora = 6
 MA_m = 3
 EWMA_a = 0.3

@@ -187,7 +187,9 @@ def creaBDalarmas(connString,tableinput,tableoutput,hora,MA_m,EWMA_a):
 	layer.CreateField(ogr.FieldDefn("acel_ewma_radial", ogr.OFTReal))
 	# Cargar tabla y agregar atributos y feature la tabla de salida
 	datos = cargarTabla(tableinput,connString)
-	print "datos cargados en objeto TablaPrisma"
+	ntotal = datos.elementos
+	print "Numero de prismas a cargar: %d"%(ntotal)
+	iter = 1
 	for prisma in datos.dataPrismas:
 		pointid = prisma.name
 		print("procesando prisma "+ pointid + " ... "),
@@ -226,7 +228,8 @@ def creaBDalarmas(connString,tableinput,tableoutput,hora,MA_m,EWMA_a):
 			layer.CreateFeature(feature)
 			# Destroy the feature to free resources
 			feature.Destroy()
-		print " prisma " + pointid + " procesado"
+		print " prisma '%s' procesado (%d/%d)"%(pointid,iter,ntotal)
+		iter = iter + 1
 	# eliminar el TimeZone del campo 'fecha'
 	sql1 = 'ALTER TABLE %s ALTER COLUMN %s TYPE timestamp(6);' %(tableoutput,"fecha")
 	printSQL(sql1)
