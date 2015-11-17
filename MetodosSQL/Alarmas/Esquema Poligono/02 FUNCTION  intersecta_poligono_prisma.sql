@@ -1,7 +1,7 @@
-﻿-- F|unction: prismas.intersecta_poligono_prisma
--- DROP FUNCTION prismas.intersecta_poligono_prisma();
+﻿-- F|unction: poligonos.intersecta_poligono_prisma
+-- DROP FUNCTION poligonos.intersecta_poligono_prisma();
 
-CREATE OR REPLACE FUNCTION prismas.intersecta_poligono_prisma()
+CREATE OR REPLACE FUNCTION poligonos.intersecta_poligono_prisma()
  RETURNS trigger AS
 	$BODY$
 
@@ -17,7 +17,7 @@ BEGIN
 	nIdPoligono$ := new.id;
 
 	DELETE FROM 
-		prismas.poligono_prisma
+		poligonos.poligono_prisma
 	WHERE
 		id_poligono = nIdPoligono$;
 		
@@ -27,13 +27,13 @@ BEGIN
 			id as poligono
 		FROM
 			prismas.cons_alarma_prisma
-		INNER JOIN prismas.poligono ON ST_Intersects (
+		INNER JOIN poligonos.poligono ON ST_Intersects (
 			prismas.cons_alarma_prisma.geom,
-			prismas.poligono.geom
+			poligonos.poligono.geom
 			)
 		WHERE
 			ST_isvalid (prismas.cons_alarma_prisma.geom) = 't'
-			AND ST_isvalid (prismas.poligono.geom) = 't'
+			AND ST_isvalid (poligonos.poligono.geom) = 't'
 			AND poligono.id = nIdPoligono$
 	LOOP
 	
@@ -41,7 +41,7 @@ BEGIN
 		
 		--BEGIN
 			INSERT INTO
-				prismas.poligono_prisma
+				poligonos.poligono_prisma
 				(
 				id_poligono,
 				id_prisma
@@ -66,6 +66,6 @@ END;
 $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100;
-ALTER FUNCTION prismas.intersecta_poligono_prisma()
+ALTER FUNCTION poligonos.intersecta_poligono_prisma()
   OWNER TO postgres;
  

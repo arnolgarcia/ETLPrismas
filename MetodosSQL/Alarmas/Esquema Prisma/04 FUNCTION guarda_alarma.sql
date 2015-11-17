@@ -8,9 +8,26 @@ $BODY$
 DECLARE
 	/* Variables LOCALES */
 	sResult$		varchar(200);
-	
+	nCantidad$	integer;
+	sTransaccion$	varchar(20);
 BEGIN
-
+	nCantidad$ := 0;
+	
+	SELECT
+		COUNT(*)
+	INTO
+		nCantidad$
+	FROM
+		prismas.alarma_log
+	where
+	id = new.id;
+	
+	IF nCantidad$ <> 0 THEN
+		sTransaccion$ := 'ACTUALIZACION';
+	ELSE
+		sTransaccion$ := 'CREACION';
+	END IF;
+	
 	INSERT INTO
 		prismas.alarma_log
 	VALUES
@@ -28,7 +45,8 @@ BEGIN
 		NEW.algoritmo,
 		NEW.estado,
 		NOW(),
-		0
+		0,
+		sTransaccion$
 	);
 	
 	SELECT 

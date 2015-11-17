@@ -30,7 +30,7 @@
 
 	FROM 
 		prismas.cons_alarma_prisma
-		INNER JOIN prismas.poligono_prisma ON 
+		INNER JOIN poligonos.poligono_prisma ON 
 			poligono_prisma.id_prisma = cons_alarma_prisma.pointid
 		INNER JOIN prismas.poligono_alarma ON
 			poligono_alarma.id_poligono = poligono_prisma.id_poligono

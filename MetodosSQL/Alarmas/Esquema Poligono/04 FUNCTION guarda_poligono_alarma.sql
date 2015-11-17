@@ -1,7 +1,7 @@
-﻿-- Function: prismas.guarda_poligono_alarma
--- DROP FUNCTION prismas.guarda_poligono_alarma();
+﻿-- Function: poligonos.guarda_poligono_alarma
+-- DROP FUNCTION poligonos.guarda_poligono_alarma();
 
-CREATE OR REPLACE FUNCTION prismas.guarda_poligono_alarma()
+CREATE OR REPLACE FUNCTION poligonos.guarda_poligono_alarma()
  RETURNS trigger AS
 $BODY$
 
@@ -22,6 +22,6 @@ END;
 $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100;
-ALTER FUNCTION prismas.guarda_poligono_alarma()
+ALTER FUNCTION poligonos.guarda_poligono_alarma()
   OWNER TO postgres;
  

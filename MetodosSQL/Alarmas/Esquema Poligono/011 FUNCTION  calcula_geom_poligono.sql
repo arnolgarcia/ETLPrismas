@@ -1,8 +1,8 @@
--- Function: prismas.calcula_geom_poligono()
+-- Function: poligonos.calcula_geom_poligono()
 
--- DROP FUNCTION prismas.calcula_geom_poligono();
+-- DROP FUNCTION poligonos.calcula_geom_poligono();
 
-CREATE OR REPLACE FUNCTION prismas.calcula_geom_poligono(integer)
+CREATE OR REPLACE FUNCTION poligonos.calcula_geom_poligono(integer)
  RETURNS VOID AS 
 $BODY$
 
@@ -34,7 +34,7 @@ BEGIN
 			longitud,
 			latitud
 		FROM 
-			prismas.points
+			poligonos.points
 		WHERE 
 			poligono_id = nIdPoligono$	
 		ORDER BY 
@@ -66,7 +66,7 @@ BEGIN
 		IF nCantidad$ > 2 THEN
 			IF fLongitudMinima$ = fLongitudMaxima$ AND fLatitudMinima$ = fLatitudMaxima$ THEN
 				UPDATE
-					prismas.poligono
+					poligonos.poligono
 				SET
 					geom = ST_Transform (
 								ST_GeomFromText (sQuery$,4326)
@@ -82,5 +82,5 @@ BEGIN
 $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100;
-ALTER FUNCTION prismas.calcula_geom_poligono(integer)
+ALTER FUNCTION poligonos.calcula_geom_poligono(integer)
   OWNER TO postgres;

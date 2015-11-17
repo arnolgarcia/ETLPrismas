@@ -1,5 +1,5 @@
 ALTER TABLE
-	prismas.points
+	poligonos.poligono
 ADD 
 	geom geometry;
 

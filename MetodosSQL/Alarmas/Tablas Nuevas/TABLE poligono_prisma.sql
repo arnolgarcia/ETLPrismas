@@ -1,4 +1,4 @@
-﻿CREATE TABLE prismas.poligono_prisma
+﻿CREATE TABLE poligonos.poligono_prisma
 (
   id_poligono integer NOT NULL,
   id_prisma character varying NOT NULL,
@@ -7,5 +7,5 @@
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE prismas.poligono_prisma
+ALTER TABLE poligonos.poligono_prisma
   OWNER TO postgres;

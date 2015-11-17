@@ -1,7 +1,7 @@
-﻿-- Function: prismas.elimina_poligono_prisma
--- DROP FUNCTION prismas.elimina_poligono_prisma();
+﻿-- Function: poligonos.elimina_poligono_prisma
+-- DROP FUNCTION poligonos.elimina_poligono_prisma();
 
-CREATE OR REPLACE FUNCTION prismas.elimina_poligono_prisma()
+CREATE OR REPLACE FUNCTION poligonos.elimina_poligono_prisma()
  RETURNS trigger AS
 $BODY$
 
@@ -13,7 +13,7 @@ BEGIN
 	nIdPoligono$ := new.id;
 
 	DELETE FROM 
-		prismas.poligono_prisma
+		poligonos.poligono_prisma
 	WHERE
 		id_poligono = nIdPoligono$;
 			
@@ -22,6 +22,6 @@ END;
 $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100;
-ALTER FUNCTION prismas.elimina_poligono_prisma()
+ALTER FUNCTION poligonos.elimina_poligono_prisma()
   OWNER TO postgres;
  

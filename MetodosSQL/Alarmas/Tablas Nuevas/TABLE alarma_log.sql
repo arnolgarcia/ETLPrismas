@@ -18,6 +18,7 @@ CREATE TABLE prismas.alarma_log
   estado boolean,
   log_fecha	timestamp NOT NULL,
   log_usuario character varying,
+  log_transaccion	character varying,
   CONSTRAINT alarma_log_pkey PRIMARY KEY (id,log_fecha)
 )
 WITH (

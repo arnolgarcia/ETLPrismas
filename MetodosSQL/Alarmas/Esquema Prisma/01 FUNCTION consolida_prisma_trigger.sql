@@ -25,7 +25,7 @@ BEGIN
 	IF NEW.codestado = 'PENDI' THEN
 		
 		DELETE FROM 
-			prismas.poligono_prisma;
+			poligonos.poligono_prisma;
 				
 		FOR cur_Prismas IN
 			SELECT distinct
@@ -33,13 +33,13 @@ BEGIN
 				id as poligono
 			FROM
 				prismas.cons_alarma_prisma
-			INNER JOIN prismas.poligono ON ST_Intersects (
+			INNER JOIN poligonos.poligono ON ST_Intersects (
 				prismas.cons_alarma_prisma.geom,
-				prismas.poligono.geom
+				poligonos.poligono.geom
 				)
 			WHERE
 				ST_isvalid (prismas.cons_alarma_prisma.geom) = 't'
-				AND ST_isvalid (prismas.poligono.geom) = 't'
+				AND ST_isvalid (poligonos.poligono.geom) = 't'
 
 			LOOP
 
@@ -48,7 +48,7 @@ BEGIN
 			
 			
 				INSERT INTO
-					prismas.poligono_prisma
+					poligonos.poligono_prisma
 					(
 					id_poligono,
 					id_prisma

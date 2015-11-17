@@ -28,7 +28,8 @@ BEGIN
 		OLD.algoritmo,
 		OLD.estado,
 		NOW(),
-		0
+		0,
+		'ELIMINACION'
 	);
 		
 	RETURN NEW;
