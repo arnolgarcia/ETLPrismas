@@ -32,7 +32,7 @@ BEGIN
 		'ELIMINACION'
 	);
 		
-	RETURN NEW;
+	RETURN OLD;
 	
 END;
 

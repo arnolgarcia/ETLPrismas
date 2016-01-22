@@ -113,7 +113,7 @@ BEGIN
 							END IF;
 						END IF;
 						
-						nIdAlarmaEstado$ := nextval('prismas.alarma_estado_id_seq');
+						nIdAlarmaEstado$ := nextval('prismas.alarma_estado_actual_id_seq');
 						/*validar con calma, la opcion de: para una misma alarma/fecha, verificar si los datos o prismas cambiaron */
 						INSERT INTO
 						prismas.alarma_estado_actual
