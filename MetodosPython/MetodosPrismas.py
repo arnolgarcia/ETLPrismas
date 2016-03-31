@@ -147,8 +147,12 @@ def interPrisma(prisma,hora):
 	aux,interNorte =  InterMalla(fecha,norte,hora)
 	aux,interEste =  InterMalla(fecha,este,hora)
 	aux,interAltura =  InterMalla(fecha,altura,hora)
-	interVel = list(np.array(interDef)/hora)
-	return interFecha,interNorte,interEste,interAltura,interDef,interVel
+	interVel = list((np.array(interDef[1:])-np.array(interDef[0:-1]))/hora)
+	interAcel= list((np.array(interVel[1:])-np.array(interVel[0:-1]))/hora)
+	interVel.insert(0,None)
+	interAcel.insert(0,None)
+	interAcel.insert(0,None)
+	return interFecha,interNorte,interEste,interAltura,interDef,interVel,interAcel
 
 def creaBDalarmas(connString,tableinput,tableoutput,hora,MA_m,EWMA_a):
 	if len(tableoutput.split("."))==2:
@@ -193,8 +197,7 @@ def creaBDalarmas(connString,tableinput,tableoutput,hora,MA_m,EWMA_a):
 	for prisma in datos.dataPrismas:
 		pointid = prisma.name
 		print("procesando prisma "+ pointid + " ... "),
-		f,n,e,a,d,v = interPrisma(prisma,hora)
-		acel_r = aceleracion(v,hora)
+		f,n,e,a,d,v,acel_r = interPrisma(prisma,hora)
 		def_MA = MA(d,MA_m)
 		def_EWMA = EWMA(d,EWMA_a)
 		vel_MA = MA(v,MA_m)
